@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import Catito from "./Components/Catito/Catito";
 import "./App.css";
-//const
 
 function App() {
   const [count, setCount] = useState({

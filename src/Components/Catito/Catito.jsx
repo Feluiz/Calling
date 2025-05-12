@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-let catUrl = "https://images.vexels.com/content/132714/preview/witch-cat-face-aaba91.png";
-let catName = 'Hola gatito';
 
 const Catito = (catInfo) => {
 

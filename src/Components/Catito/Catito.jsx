@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-const Catito = (catInfo) => {
+const Catito = ({catInfo}) => {
 
     return (
         <>
-            <div className="flex flex-col items-center">
-                <img className="max-h-48 w-auto" src={catInfo.catInfo.image} height='1rem' alt="catito" />
-                <p>{catInfo.catInfo.name}</p>
+            <div className="flex flex-col items-center p-3 border-2 m-2 cursor-pointer" onClick={() => console.log('hola')}>
+                <img className="max-h-48 w-auto" src={catInfo.image} height='1rem' alt="catito" />
+                <p>{catInfo.name}</p>
             </div>
         </>
     )

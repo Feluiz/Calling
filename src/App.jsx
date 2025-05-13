@@ -2,11 +2,14 @@ import { useState } from "react";
 import axios from "axios";
 import Catito from "./Components/Catito/Catito";
 import "./App.css";
+//-- declaration
+const itemData = []; 
 
 function App() {
   const [count, setCount] = useState({
     name: 'Gatito',
     image: 'https://cdn3.iconfinder.com/data/icons/catcommerce-ginger/120/search-512.png',
+    key: '1'
   });
 
   const fetchDino = (words) => {
@@ -21,10 +24,18 @@ function App() {
         }
       )
       .then((response) => {
-        setCount({
-          name: response.data[0].breeds[0].name,
-          image: response.data[0].url,
+        console.log(response.data)
+        response.data.map((item) => {
+          let tempItem = {
+            name: item.breeds[0].name, 
+            image: item.url,
+            key: item.id
+          };
+
+          itemData.push(tempItem);
         });
+
+        setCount(itemData);
       })
       .catch((error) => {
         console.log(error ? error.message : error.status);
@@ -32,6 +43,8 @@ function App() {
   };
 
   const Execution = () => {
+    setCount([]);
+    itemData.splice(0, itemData.length)
     fetchDino();
   };
 
@@ -47,7 +60,13 @@ function App() {
       </div>
       <div className="flex flex-col items-center mt-14">
         <button className="w-28 h-10 bg-orange-600 rounded-xl m-5" onClick={Execution}>Click me!</button>
-        <Catito catInfo={count} />
+        <ul className="w-90% flex flex-grid flex-wrap justify-around">{itemData.map((item) => {
+          return(
+            <li key={item.key}>
+              <Catito catInfo={item} />
+            </li>
+          )
+        })}</ul>
       </div>
     </div>
   );

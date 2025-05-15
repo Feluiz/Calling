@@ -3,6 +3,7 @@ import axios from "axios";
 import Catito from "./Components/Catito/Catito";
 import "./App.css";
 import Modal from "./Components/Modal/Modal";
+import VoteComp from "./Components/VoteComp/VoteComp";
 //-- declaration
 const itemData = [];
 
@@ -16,14 +17,14 @@ function App() {
     key: "",
     description: "",
     perks: {
-      adaptability: '',
-      affection_level: '',
-      stranger_friendly: '',
-      social_needs: '',
+      adaptability: "",
+      affection_level: "",
+      stranger_friendly: "",
+      social_needs: "",
     },
   });
 
-  const fetchDino = () => {
+  const fetchGatalog = () => {
     axios
       .get(
         "https://api.thecatapi.com/v1/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=9",
@@ -63,7 +64,7 @@ function App() {
   const Execution = () => {
     setCount([]);
     itemData.splice(0, itemData.length);
-    fetchDino();
+    fetchGatalog();
   };
 
   const handleClick = (data) => {
@@ -82,20 +83,25 @@ function App() {
         <h1 className="text-center font-serif text-3xl">Gatalog</h1>
       </div>
       <div className="flex flex-col items-center mt-14">
-        <button
+        {/* <button
           className="w-28 h-10 bg-orange-600 rounded-xl m-5 hover:shadow-[0_0_20px_8px_rgba(255,255,255,0.5)] transition-shadow duration-300"
           onClick={Execution}
         >
-          Click me!
+          Gatalog!
         </button>
         <ul
           className="2xl:w-[80%] lg:w-[95%] w-[90%] flex flex-row flex-wrap justify-around console.log();
         "
         >
           {itemData.map((item) => {
-            return <Catito catInfo={item} onItemClick={handleClick} key={item.key}/>;
+            return (
+              <Catito catInfo={item} onItemClick={handleClick} key={item.key} />
+            );
           })}
-        </ul>
+        </ul> */}
+        <div>
+          <VoteComp />
+        </div>
       </div>
       {isModalOpen && <Modal item={id} onClose={setModalOpen} />}
     </div>

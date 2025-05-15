@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* VoteComp.css */
+.vote-button svg {
+  stroke: #333; 
+  transition: stroke 0.2s;
+}
+
+.vote-button:hover svg {
+  stroke: #28a745; 
+  filter: drop-shadow(0 2px 4px #28a745);
+}
+
+.vote-button.down:hover svg {
+  stroke: #dc3545; 
+  filter: drop-shadow(0 2px 4px #dc3545);
+}
+
+.vote-button:hover {
+  background-color: transparent;
+}

@@ -1,39 +1,27 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Catito from "../Catito/Catito";
+import Catito from "./Catito/Catito";
 const itemData = [];
+const keys = 'live_fiZ64z54mGbHWOwxgPMnn8ibSdAxGxpzDmv3APwvuwc0FReF3nbbOUGTHxZPp8KA';
+const keyUrl = 'https://api.thecatapi.com/v1/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=9';
 
 const Gatalog = () => {
-  const [id, setId] = useState("");
+  const [id, setId] = useState(""); // set for modal information!
   const [isLoading, setisLoading] = useState(false);
-  const [count, setCount] = useState({
-    name: "Gatito",
-    image:
-      "https://cdn3.iconfinder.com/data/icons/catcommerce-ginger/120/search-512.png",
-    key: "",
-    description: "",
-    perks: {
-      adaptability: "",
-      affection_level: "",
-      stranger_friendly: "",
-      social_needs: "",
-    },
-  });
 
   const fetchGatalog = () => {
     setisLoading(true);
     axios
       .get(
-        "https://api.thecatapi.com/v1/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=9",
+        keyUrl,
         {
           headers: {
             "x-api-key":
-              "live_fiZ64z54mGbHWOwxgPMnn8ibSdAxGxpzDmv3APwvuwc0FReF3nbbOUGTHxZPp8KA",
+              keys,
           },
         }
       )
       .then((response) => {
-        // console.log(response.data);
         response.data.map((item) => {
           let tempItem = {
             name: item.breeds[0].name,
@@ -51,7 +39,6 @@ const Gatalog = () => {
           itemData.push(tempItem);
         });
 
-        setCount(itemData);
         setisLoading(false);
       })
       .catch((error) => {
@@ -60,7 +47,6 @@ const Gatalog = () => {
   };
 
   const Execution = () => {
-    setCount([]);
     itemData.splice(0, itemData.length);
     fetchGatalog();
   };
@@ -71,6 +57,7 @@ const Gatalog = () => {
   };
 
   useEffect(() => {
+    itemData.splice(0, itemData.length);
     fetchGatalog();
   }, []);
 

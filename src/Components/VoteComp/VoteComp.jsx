@@ -68,9 +68,9 @@ const VoteComp = () => {
   return (
     <>
       <section className="border-2 p-2">
-        <div className=" text-black">
+        <div className="flex text-black h-[25rem] w-[38rem] justify-center">
           <img
-            className="max-h-[25rem] bg-transparent"
+            className="max-h-[25rem] max-w-[38rem] bg-transparent"
             src={catItem.image}
             alt="cat image"
           />

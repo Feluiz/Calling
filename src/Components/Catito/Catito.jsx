@@ -19,7 +19,7 @@ const Catito = ({ catInfo, onItemClick }) => {
   return (
     <li
       key={catInfo.key}
-      className="w-96 m-1 h-[42.5rem] perspective-1000 cursor-pointer"
+      className="w-96 m-1 h-[40rem] perspective-1000 cursor-pointer"
       onClick={() => handleClick(catInfo.key)}
     >
       <div

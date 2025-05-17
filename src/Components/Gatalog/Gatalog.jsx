@@ -31,7 +31,7 @@ const Gatalog = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         response.data.map((item) => {
           let tempItem = {
             name: item.breeds[0].name,

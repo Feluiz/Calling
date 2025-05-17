@@ -15,7 +15,6 @@ function App() {
     setGatalogBtn(gatalogBtn === 'bg-transparent' ? 'bg-orange-500' : 'bg-transparent');
     setVoteBtn(voteBtn === 'bg-orange-500' ? 'bg-transparent' : 'bg-orange-500');
     setActiveTab(activeTab === 'gatalog' ? 'voting' : 'gatalog');
-    console.log(voteBtn, ' | ' , gatalogBtn, ' | ', activeTab);
   };
 
   return (

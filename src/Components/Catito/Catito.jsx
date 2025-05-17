@@ -46,7 +46,7 @@ const Catito = ({ catInfo, onItemClick }) => {
                 <h2>{formatText(key)}</h2>
                 <div className="bg-red-500 w-full h-4 rounded-lg">
                   <div
-                    className="bg-green-500 h-4 rounded-lg"
+                    className="bg-green-500 h-4 w-full rounded-lg"
                     style={{ width: `${value * 10}%` }}
                   ></div>
                 </div>

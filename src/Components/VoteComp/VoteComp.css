@@ -21,3 +21,21 @@
 .vote-button:hover {
   background-color: transparent;
 }
+
+@keyframes voteSlide {
+  0% {
+    transform : translateY(0);
+  }
+
+  50% {
+    transform: translateY(25rem);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-slide {
+  animation: voteSlide 2s ease-in-out forwards;
+}

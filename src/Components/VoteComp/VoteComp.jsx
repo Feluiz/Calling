@@ -6,9 +6,11 @@ const apiKey =
 const voteUrl = "https://api.thecatapi.com/v1/votes";
 
 const VoteComp = () => {
-    const [serviceRes, setServiceRes] = useState('+1');
-    const [style, setStyle] = useState('hidden bg-black');
-    const [catItem, setCatItem] = useState({
+  const [serviceRes, setServiceRes] = useState("+1");
+  const [style, setStyle] = useState("hidden bg-black");
+  const [animateClss, setAnimateClss] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
+  const [catItem, setCatItem] = useState({
     image:
       "https://pawzforthought.org/wp-content/uploads/2025/01/cat-page-icon.png",
     key: "",
@@ -24,8 +26,9 @@ const VoteComp = () => {
     axios
       .post(voteUrl, body, { headers: { "x-api-key": apiKey } })
       .then((res) => {
-        paintResponse(res.data)
+        paintResponse(res.data);
         fetchGatalog();
+        setisLoading(true);
       })
       .catch((err) => {
         alert("error ", err);
@@ -55,24 +58,49 @@ const VoteComp = () => {
   };
 
   const paintResponse = (data) => {
-    data.value === 1 ? setStyle('flex bg-[#28a745]') : setStyle('flex bg-[#dc3545]');
-    data.value === 1 ? setServiceRes('+1') : setServiceRes('-1');
+    data.value === 1
+      ? setStyle("flex bg-[#28a745] w-full text-center")
+      : setStyle("flex bg-[#dc3545] w-full");
+    data.value === 1 ? setServiceRes("+1") : setServiceRes("-1");
+    setAnimateClss(true);
+    // console.log(animateClss);
 
-    setTimeout(() => setStyle('hidden'), 2000);
+    setTimeout(() => console.log(animateClss), 2000);
   };
 
   useEffect(() => {
     fetchGatalog();
   }, []);
 
+  const handleLoading = () => {
+    setisLoading(false);
+  };
+
   return (
     <>
       <section className="border-2 p-2">
-        <div className="flex text-black h-[25rem] w-[38rem] justify-center">
+        <div className="flex text-black h-[25rem] w-[38rem] items-center justify-center">
+          {isLoading && <div className="w-full animate-pulse flex justify-center">
+            <svg
+              className=" w-12 h-12 text-gray-400 items-center"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>}
           <img
-            className="max-h-[25rem] max-w-[38rem] bg-transparent"
+            className={`max-h-[25rem] max-w-[38rem] bg-transparent ${isLoading ? 'hidden' : ''}`}
             src={catItem.image}
             alt="cat image"
+            onLoad={() => handleLoading()}
           />
         </div>
         <section className="flex flex-row justify-around my-5 p-[-1]">
@@ -106,7 +134,13 @@ const VoteComp = () => {
           </button>
         </section>
       </section>
-      <div className={`static ${style}`}>Voted  {serviceRes}</div>
+      <div
+        className={`static ${style} justify-center rounded-b-lg ${
+          animateClss === true ? "animateClss" : ""
+        }`}
+      >
+        Voted {serviceRes}
+      </div>
     </>
   );
 };

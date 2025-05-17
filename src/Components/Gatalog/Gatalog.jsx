@@ -5,6 +5,7 @@ const itemData = [];
 
 const Gatalog = () => {
   const [id, setId] = useState("");
+  const [isLoading, setisLoading] = useState(false);
   const [count, setCount] = useState({
     name: "Gatito",
     image:
@@ -20,6 +21,7 @@ const Gatalog = () => {
   });
 
   const fetchGatalog = () => {
+    setisLoading(true);
     axios
       .get(
         "https://api.thecatapi.com/v1/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=9",
@@ -50,6 +52,7 @@ const Gatalog = () => {
         });
 
         setCount(itemData);
+        setisLoading(false);
       })
       .catch((error) => {
         console.log(error ? error.message : error.status);
@@ -80,16 +83,39 @@ const Gatalog = () => {
         >
           Refresh!
         </button>
-        <ul
-          className="2xl:w-[80%] lg:w-[95%] w-[90%] flex flex-row flex-wrap justify-around console.log();
+        {isLoading ? (
+          <div className="w-full animate-pulse flex justify-center pt-10">
+            <svg
+              className=" w-20 h-20 text-gray-400 items-center"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+        ) : (
+          <ul
+            className="2xl:w-[80%] lg:w-[95%] w-[90%] flex flex-row flex-wrap justify-around;
         "
-        >
-          {itemData.map((item) => {
-            return (
-              <Catito catInfo={item} onItemClick={handleClick} key={item.key} />
-            );
-          })}
-        </ul>
+          >
+            {itemData.map((item) => {
+              return (
+                <Catito
+                  catInfo={item}
+                  onItemClick={handleClick}
+                  key={item.key}
+                />
+              );
+            })}
+          </ul>
+        )}
       </div>
     </>
   );

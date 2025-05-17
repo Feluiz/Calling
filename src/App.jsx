@@ -35,7 +35,7 @@ function App() {
           Voting
         </button>
       </div>
-      <div className="flex flex-col items-center mt-5">
+      <div className="flex flex-col items-center mt-4">
         {activeTab === 'gatalog' ? <Gatalog /> : <VoteComp />}
       </div>
       {isModalOpen && <Modal item={id} onClose={setModalOpen} />}

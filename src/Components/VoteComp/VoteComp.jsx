@@ -7,8 +7,8 @@ const voteUrl = "https://api.thecatapi.com/v1/votes";
 
 const VoteComp = () => {
   const [serviceRes, setServiceRes] = useState("+1");
-  const [style, setStyle] = useState("hidden bg-black");
   const [animateClss, setAnimateClss] = useState(false);
+  const [scoreColor, seScoreColor] = useState("bg-green-500");
   const [isLoading, setisLoading] = useState(false);
   const [catItem, setCatItem] = useState({
     image:
@@ -22,6 +22,7 @@ const VoteComp = () => {
       sub_id: "default",
       value: vote,
     };
+    seScoreColor(vote === 1 ? "bg-green-500" : "bg-red-500");
 
     axios
       .post(voteUrl, body, { headers: { "x-api-key": apiKey } })
@@ -29,6 +30,7 @@ const VoteComp = () => {
         paintResponse(res.data);
         fetchGatalog();
         setisLoading(true);
+        setAnimateClss(true);
       })
       .catch((err) => {
         alert("error ", err);
@@ -58,14 +60,10 @@ const VoteComp = () => {
   };
 
   const paintResponse = (data) => {
-    data.value === 1
-      ? setStyle("flex bg-[#28a745] w-full text-center")
-      : setStyle("flex bg-[#dc3545] w-full");
+    // setStyle("flex bg-[#28a745] w-full text-center");
     data.value === 1 ? setServiceRes("+1") : setServiceRes("-1");
-    setAnimateClss(true);
-    // console.log(animateClss);
 
-    setTimeout(() => console.log(animateClss), 2000);
+    setTimeout(() => setAnimateClss(false), 2000);
   };
 
   useEffect(() => {
@@ -78,26 +76,32 @@ const VoteComp = () => {
 
   return (
     <>
-      <section className="border-2 p-2">
+      <section className="border-2 p-2 rounded-lg bg-black">
         <div className="flex text-black h-[25rem] w-[38rem] items-center justify-center">
-          {isLoading && <div className="w-full animate-pulse flex justify-center">
-            <svg
-              className=" w-12 h-12 text-gray-400 items-center"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
-          </div>}
+          {isLoading && (
+            <div className="w-full animate-pulse flex justify-center">
+              <svg
+                className=" w-12 h-12 text-gray-400 items-center"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                height={100}
+                width={100}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+          )}
           <img
-            className={`max-h-[25rem] max-w-[38rem] bg-transparent ${isLoading ? 'hidden' : ''}`}
+            className={`max-h-[25rem] max-w-[38rem] bg-transparent ${
+              isLoading ? "hidden" : ""
+            }`}
             src={catItem.image}
             alt="cat image"
             onLoad={() => handleLoading()}
@@ -135,11 +139,11 @@ const VoteComp = () => {
         </section>
       </section>
       <div
-        className={`static ${style} justify-center rounded-b-lg ${
-          animateClss === true ? "animateClss" : ""
+        className={`flex ${scoreColor} h-10 w-full -translate-y-10 -z-10 justify-center items-end rounded-b-lg ${
+          animateClss === true ? "animate-slide" : ""
         }`}
       >
-        Voted {serviceRes}
+        <p className="pb-1">Voted {serviceRes}</p>
       </div>
     </>
   );

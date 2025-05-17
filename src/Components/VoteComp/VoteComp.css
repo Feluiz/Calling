@@ -4,7 +4,7 @@
 
 /* VoteComp.css */
 .vote-button svg {
-  stroke: #333; 
+  stroke: #ffffff; 
   transition: stroke 0.2s;
 }
 
@@ -24,15 +24,15 @@
 
 @keyframes voteSlide {
   0% {
-    transform : translateY(0);
+    transform : translateY(-2.5rem);
   }
 
   50% {
-    transform: translateY(25rem);
+    transform: translateY(-.5rem);
   }
 
   100% {
-    transform: translateY(0);
+    transform: translateY(-2.5rem);
   }
 }
 
